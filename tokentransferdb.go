@@ -121,7 +121,7 @@ func (tt *NamedTokenTransfer) FindAllByAddress(addr string) (transfers []NamedTo
 		from tokentransfers A, tokens B
 		 where A.tokenid = B.tkn
 		 and (source=$1 or dest=$1)
-		 order by blocknumber desc, index desc`
+		 order by blocknumber asc, index asc`
 	stmt, err := db.Prepare(statement)
 	if err != nil {
 		return
