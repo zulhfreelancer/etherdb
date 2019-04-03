@@ -88,7 +88,7 @@ func getNamedTransfers(rows *sql.Rows) (transfers []NamedTokenTransfer, err erro
 
 // Find transfers that match tokenID
 func (tt *TokenTransfer) Find() (transfers []TokenTransfer, err error) {
-	statement := `select transferid,tokenid,blocknumber,blockhash,index,txhash,source,dest,amount,timestamp from tokentransfers where tokenid=$1 order by timestamp desc`
+	statement := `select transferid,tokenid,blocknumber,blockhash,index,txhash,source,dest,amount,timestamp from tokentransfers where tokenid=$1 order by timestamp asc`
 	stmt, err := db.Prepare(statement)
 	if err != nil {
 		return
