@@ -103,7 +103,7 @@ func (tt *TokenTransfer) Find() (transfers []TokenTransfer, err error) {
 
 // FindByAddress returns transfers of specific token to or from an address
 func (tt *TokenTransfer) FindByAddress(addr string) (transfers []TokenTransfer, err error) {
-	statement := `select transferid,tokenid,blocknumber,blockhash,index,txhash,source,dest,amount,timestamp from tokentransfers where tokenid=$1 and (source=$2 or dest=$2)`
+	statement := `select transferid,tokenid,blocknumber,blockhash,index,txhash,source,dest,amount,timestamp from tokentransfers where tokenid=$1 and (source=$2 or dest=$2) order by timestamp asc`
 	stmt, err := db.Prepare(statement)
 	if err != nil {
 		return
@@ -121,7 +121,7 @@ func (tt *NamedTokenTransfer) FindAllByAddress(addr string) (transfers []NamedTo
 		from tokentransfers A, tokens B
 		 where A.tokenid = B.tkn
 		 and (source=$1 or dest=$1)
-		 order by blocknumber asc, index asc`
+		 order by blocknumber desc, index desc`
 	stmt, err := db.Prepare(statement)
 	if err != nil {
 		return
